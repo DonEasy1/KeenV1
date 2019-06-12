@@ -1,0 +1,23 @@
+{
+  "name": "v1",
+  "version": "1.0.0",
+  "description": "Keen Camp v1",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DonEasy1/Keen.git"
+  },
+  "author": "Dawn Ann",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/DonEasy1/Keen/issues"
+  },
+  "homepage": "https://github.com/DonEasy1/Keen#readme",
+  "dependencies": {
+    "ejs": "^2.6.1",
+    "express": "^4.17.1"
+  }
+}
