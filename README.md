@@ -28,6 +28,10 @@ Each campground has:
 * Add better header/title
 * make campgronds display in a gridS
 
+# Style the navbar & form
+* add a navbar to all templates
+* style the new campground form
+
 # KeenKamp
 
 > A Node.js web application project spawned from the Udemy course - [The Web Developer Bootcamp by Colt Steele](https://www.udemy.com/the-web-developer-bootcamp/)
