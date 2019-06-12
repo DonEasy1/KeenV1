@@ -24,6 +24,10 @@ Each campground has:
 * setup route to show form
 * add basic unstyled form
 
+# Style the campgrounds page
+* Add better header/title
+* make campgronds display in a gridS
+
 # KeenKamp
 
 > A Node.js web application project spawned from the Udemy course - [The Web Developer Bootcamp by Colt Steele](https://www.udemy.com/the-web-developer-bootcamp/)

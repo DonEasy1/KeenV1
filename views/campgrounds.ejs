@@ -1,13 +1,25 @@
 <% include partials/header %>
-
-<h1>Kamps</h1>
-<a href='/campgrounds/new'>Add new Kamp</a>
-
-<% campgrounds.forEach(function (campground) { %>
-    <ul>
-        <ol><li><h2><%= campground.name %><br/><img src=" <%= campground.image %> "</h2>
-        </li></ol>
-    </ul>
-   <% }); %>
+<div class='container text-center'>
+    <header class='jumbotron center'>
+        <div class='container'>
+            <h1>Welcome to KeenKamps!</h1>
+            <p>Our most popular sites around the world.</p>
+            <p><a class='btn btn-primary btn-lg' href='/campgrounds/new'>Add new Kampground</a></p>
+        </div>
+    </header>
+    <!--style="display:flex; flex-wrap: wrap; are properties to help grid with diff size pics-->
+    <div class ='row' style="display:flex; flex-wrap: wrap;"> 
+                <% campgrounds.forEach(function (campground) { %>
+                <div class ='col-md-3 col-sm-6'>
+                    <div class="thumbnail">
+                        <img src="<%= campground.image %>"</h2>
+                        <div class ='caption'>
+                            <h4><%= campground.name %></h4>
+                        </div>
+                    </div>
+                </div>
+           <% }); %>
+    </div>
+</div>
    
 <% include partials/footer %>
