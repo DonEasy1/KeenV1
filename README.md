@@ -32,6 +32,11 @@ Each campground has:
 * add a navbar to all templates
 * style the new campground form
 
+# Add Mongoos
+* Install and configure mongoose
+* Setup campground model
+* Use campground model inside of our routes
+
 # KeenKamp
 
 > A Node.js web application project spawned from the Udemy course - [The Web Developer Bootcamp by Colt Steele](https://www.udemy.com/the-web-developer-bootcamp/)
