@@ -14,15 +14,16 @@ app.set('view engine', 'ejs');
 //SCHEMA SETUP
 var campgroundSchema = new mongoose.Schema({
     name: String,
-    image: String
+    image: String,
+    description: String
 });
 
 var Campground = mongoose.model("Campground", campgroundSchema);
 
 // Campground.create({
 //     name: 'Granite Hill', 
-//     image: 'https://farm8.staticflickr.com/7205/7121863467_eb0aa64193.jpg'
-    
+//     image: 'https://farm8.staticflickr.com/7205/7121863467_eb0aa64193.jpg',
+//     description: 'This is a huge granite hill. No bathrooms. No water. Beautiful scenery.'
 // },
 // (err, campground) => {
 //     if(err){
@@ -52,27 +53,44 @@ app.get('/', (req, res) => {
     res.render('landing');
 });
 
+// INDEX route - show all campgrounds
 app.get('/campgrounds', (req, res) => {
     // all campgrounds from db
     Campground.find({}, (err, allcampgrounds) => {
         if (err) {
             console.log(err);
         } else {
-            res.render('campgrounds',{campgrounds: allcampgrounds});
+            res.render('index',{campgrounds: allcampgrounds});
         }
     })
     // res.render('campgrounds',{campgrounds: campgrounds});
 });
 
+//NEW - show form to create new campground must be before SHOW Page (/:id)
 app.get('/campgrounds/new', (req, res) => {
-    res.render('new.ejs')
+    res.render('new.ejs');
 });
 
+//SHOW - shows more info about 1 campground
+app.get("/campgrounds/:id", (req, res) => {
+    //find the campground with provided ID
+    Campground.findById(req.params.id, (err, foundCampground) => {
+        if(err){
+            console.log(err);
+        } else {
+       //render show template with that campground
+        res.render("show", {campground: foundCampground}); 
+        }
+    });
+});
+
+//CREATE ROUTE - add a new campground to DB
 app.post('/campgrounds', (req,res) => {
     var name = req.body.name;
     var image = req.body.image;
+    var desc = req.body.description
     //get data from form and add to campgrounds array
-    var newCampground = {name: name, image: image};
+    var newCampground = {name: name, image: image, description: desc};
     // create new campground and save to db
     Campground.create(newCampground, (err, newlyCreated) => {
         if(err) {
