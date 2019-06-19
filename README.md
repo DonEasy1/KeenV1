@@ -48,6 +48,10 @@ Each campground has:
 * use module.exports
 * require everything correctly
 
+# Add Seeds File
+* Add a seeds.js file
+* Run the seeds file every time the server starts
+
 RESTFUL ROUTES
 
 name     url      verb          description

@@ -1,13 +1,12 @@
-/* global name */
-/* global image */
-var express = require('express'),
+const express = require('express'),
     app = express(),
     bodyParser = require('body-parser'),
     mongoose = require('mongoose'),
-    Campground = require('./models/campground')
-    
-mongoose.connect("mongodb://localhost:27017/keen_kamps", { useNewUrlParser: true });
-    
+    Campground = require('./models/campground');
+	seedDB = require("./seeds");
+
+seedDB();    
+mongoose.connect("mongodb://localhost:27017/keen_kamps", { useNewUrlParser: true });  
 app.use(bodyParser.urlencoded({extended: true}));
 app.set('view engine', 'ejs');
 
@@ -42,6 +41,7 @@ var campgrounds = [
         {name: 'Little Mine Camp', image: 'https://farm9.staticflickr.com/8041/7930201874_6c17ed670a.jpg'}
     ];
 app.get('/', (req, res) => {
+	// console.log('Is this thing on?');
     res.render('landing');
 });
 
@@ -80,7 +80,7 @@ app.get("/campgrounds/:id", (req, res) => {
 app.post('/campgrounds', (req,res) => {
     var name = req.body.name;
     var image = req.body.image;
-    var desc = req.body.description
+    var desc = req.body.description;
     //get data from form and add to campgrounds array
     var newCampground = {name: name, image: image, description: desc};
     // create new campground and save to db
@@ -95,6 +95,6 @@ app.post('/campgrounds', (req,res) => {
     });
 });
 
-app.listen(process.env.PORT, process.env.IP, () => {
-    console.log('KeenKamp');
+app.listen(3000, () => {
+    console.log('KeenKamps');
 });
