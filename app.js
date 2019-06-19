@@ -4,12 +4,11 @@ const express = require('express'),
     mongoose = require('mongoose'),
     Campground = require('./models/campground');
 	seedDB = require("./seeds");
-
-seedDB();    
+   
 mongoose.connect("mongodb://localhost:27017/keen_kamps", { useNewUrlParser: true });  
 app.use(bodyParser.urlencoded({extended: true}));
 app.set('view engine', 'ejs');
-
+seedDB(); 
 
 // Campground.create({
 //     name: 'Granite Hill', 
@@ -66,10 +65,11 @@ app.get('/campgrounds/new', (req, res) => {
 //SHOW - shows more info about 1 campground
 app.get("/campgrounds/:id", (req, res) => {
     //find the campground with provided ID
-    Campground.findById(req.params.id, (err, foundCampground) => {
+    Campground.findById(req.params.id).populate("comments").exec((err, foundCampground) => {
         if(err){
             console.log(err);
         } else {
+			console.log(foundCampground);
        //render show template with that campground
         res.render("show", {campground: foundCampground}); 
         }
