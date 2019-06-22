@@ -3,6 +3,7 @@ const express = require('express'),
     bodyParser = require('body-parser'),
     mongoose = require('mongoose'),
     Campground = require('./models/campground');
+	Comment = require("./models/comment");
 	seedDB = require("./seeds");
    
 mongoose.connect("mongodb://localhost:27017/keen_kamps", { useNewUrlParser: true });  
@@ -25,20 +26,21 @@ seedDB();
 // });
 
 
-var campgrounds = [
-        {name: 'Salmon Creek', image: 'https://farm2.staticflickr.com/1424/1430198323_c26451b047.jpg'},
-        {name: 'Granite Hill', image: 'https://farm8.staticflickr.com/7205/7121863467_eb0aa64193.jpg'},
-        {name: 'Little Popo Aggie', image: 'https://farm9.staticflickr.com/8041/7930201874_6c17ed670a.jpg'},
-        {name: 'Sage Creek', image: 'https://farm2.staticflickr.com/1424/1430198323_c26451b047.jpg'},
-        {name: 'Possom Hill', image: 'https://farm8.staticflickr.com/7205/7121863467_eb0aa64193.jpg'},
-        {name: 'Little Mine Camp', image: 'https://farm9.staticflickr.com/8041/7930201874_6c17ed670a.jpg'},
-        {name: 'Salmon Creek', image: 'https://farm2.staticflickr.com/1424/1430198323_c26451b047.jpg'},
-        {name: 'Granite Hill', image: 'https://farm8.staticflickr.com/7205/7121863467_eb0aa64193.jpg'},
-        {name: 'Little Popo Aggie', image: 'https://farm9.staticflickr.com/8041/7930201874_6c17ed670a.jpg'},
-        {name: 'Sage Creek', image: 'https://farm2.staticflickr.com/1424/1430198323_c26451b047.jpg'},
-        {name: 'Possom Hill', image: 'https://farm8.staticflickr.com/7205/7121863467_eb0aa64193.jpg'},
-        {name: 'Little Mine Camp', image: 'https://farm9.staticflickr.com/8041/7930201874_6c17ed670a.jpg'}
-    ];
+// var campgrounds = [
+//         {name: 'Salmon Creek', image: 'https://farm2.staticflickr.com/1424/1430198323_c26451b047.jpg'},
+//         {name: 'Granite Hill', image: 'https://farm8.staticflickr.com/7205/7121863467_eb0aa64193.jpg'},
+//         {name: 'Little Popo Aggie', image: 'https://farm9.staticflickr.com/8041/7930201874_6c17ed670a.jpg'},
+//         {name: 'Sage Creek', image: 'https://farm2.staticflickr.com/1424/1430198323_c26451b047.jpg'},
+//         {name: 'Possom Hill', image: 'https://farm8.staticflickr.com/7205/7121863467_eb0aa64193.jpg'},
+//         {name: 'Little Mine Camp', image: 'https://farm9.staticflickr.com/8041/7930201874_6c17ed670a.jpg'},
+//         {name: 'Salmon Creek', image: 'https://farm2.staticflickr.com/1424/1430198323_c26451b047.jpg'},
+//         {name: 'Granite Hill', image: 'https://farm8.staticflickr.com/7205/7121863467_eb0aa64193.jpg'},
+//         {name: 'Little Popo Aggie', image: 'https://farm9.staticflickr.com/8041/7930201874_6c17ed670a.jpg'},
+//         {name: 'Sage Creek', image: 'https://farm2.staticflickr.com/1424/1430198323_c26451b047.jpg'},
+//         {name: 'Possom Hill', image: 'https://farm8.staticflickr.com/7205/7121863467_eb0aa64193.jpg'},
+//         {name: 'Little Mine Camp', image: 'https://farm9.staticflickr.com/8041/7930201874_6c17ed670a.jpg'}
+//     ];
+
 app.get('/', (req, res) => {
 	// console.log('Is this thing on?');
     res.render('landing');
@@ -51,15 +53,14 @@ app.get('/campgrounds', (req, res) => {
         if (err) {
             console.log(err);
         } else {
-            res.render('index',{campgrounds: allcampgrounds});
+            res.render('campgrounds/index',{campgrounds: allcampgrounds});
         }
-    })
-    // res.render('campgrounds',{campgrounds: campgrounds});
+    });
 });
 
 //NEW - show form to create new campground must be before SHOW Page (/:id)
 app.get('/campgrounds/new', (req, res) => {
-    res.render('new.ejs');
+    res.render('campgrounds/new');
 });
 
 //SHOW - shows more info about 1 campground
@@ -71,16 +72,13 @@ app.get("/campgrounds/:id", (req, res) => {
         } else {
 			console.log(foundCampground);
        //render show template with that campground
-        res.render("show", {campground: foundCampground}); 
+        res.render("campgrounds/show", {campground: foundCampground}); 
         }
     });
 });
 
 //CREATE ROUTE - add a new campground to DB
-app.post('/campgrounds', (req,res) => {
-    var name = req.body.name;
-    var image = req.body.image;
-    var desc = req.body.description;
+app.post('/campgrounds', (req, res) => {
     //get data from form and add to campgrounds array
     var newCampground = {name: name, image: image, description: desc};
     // create new campground and save to db
@@ -89,12 +87,49 @@ app.post('/campgrounds', (req,res) => {
             //send user back to the form and say something re what was entered
             console.log(err);
         } else {
-        //recirect back to campgrounds page
-            res.redirect('/campgrounds');
-        }
+			res.redirect("/campgrounds");
+		}
     });
+});
+
+//========================================
+//COMMENTS ROUTES
+//========================================
+
+app.get("/campgrounds/:id/comments/new", (req, res) => {
+	//find name of campground by id 
+	Campground.findById(req.params.id, (err, campground) => {
+		if(err){
+			console.log(err);
+		} else {
+			res.render("comments/new", {campground: campground});
+		}
+	});
 });
 
 app.listen(3000, () => {
     console.log('KeenKamps');
+});
+
+app.post('/campgrounds/:id/comments', (req, res) => {
+	//lookup campground using ID
+	Campground.findById(req.params.id, (err, campground) => {
+		if(err){
+			console.log(err);
+			res.redirect('/campgrounds');
+		} else {
+		//create new coment
+			Comment.create(req.body.comment, (err, comment) => {
+				if(err){
+					console.log(err);
+				} else {
+					//connect new comment to campground
+					campground.comments.push(comment);
+					campground.save();
+					//redirect to that campground show page
+					res.redirect('/campgrounds/' + campground._id);
+				}
+			});
+		}
+	});
 });
