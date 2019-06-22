@@ -107,10 +107,6 @@ app.get("/campgrounds/:id/comments/new", (req, res) => {
 	});
 });
 
-app.listen(3000, () => {
-    console.log('KeenKamps');
-});
-
 app.post('/campgrounds/:id/comments', (req, res) => {
 	//lookup campground using ID
 	Campground.findById(req.params.id, (err, campground) => {
@@ -133,3 +129,8 @@ app.post('/campgrounds/:id/comments', (req, res) => {
 		}
 	});
 });
+
+app.listen(3000, () => {
+    console.log('KeenKamps');
+});
+
