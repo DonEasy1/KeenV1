@@ -2,8 +2,11 @@ const express = require('express'),
     app = express(),
     bodyParser = require('body-parser'),
     mongoose = require('mongoose'),
+	passport    = require("passport"),
+    LocalStrategy = require("passport-local"),
     Campground = require('./models/campground');
 	Comment = require("./models/comment");
+	User    = require('./models/user');
 	seedDB = require("./seeds");
    
 mongoose.connect("mongodb://localhost:27017/keen_kamps", { useNewUrlParser: true });  
@@ -12,6 +15,18 @@ app.set('view engine', 'ejs');
 app.use(express.static(__dirname + "/public"));
 console.log(__dirname);
 seedDB(); 
+
+//PASSORT CONFIGURATION
+app.use(require("express-session")({
+    secret: "Once again Rusty wins cutest dog!",
+    resave: false,
+    saveUninitialized: false
+}));
+app.use(passport.initialize());
+app.use(passport.session());
+passport.use(new LocalStrategy(User.authenticate()));
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
 
 // Campground.create({
 //     name: 'Granite Hill', 
@@ -132,6 +147,29 @@ app.post('/campgrounds/:id/comments', (req, res) => {
 	});
 });
 
+//===========
+//AUTH ROUTES
+//===========
+
+//show register form
+app.get('/register', (req, res) => {
+	res.render('register');
+});
+
+//handle sign-up logic
+app.post("/register", (req, res) => {
+    var newUser = new User({username: req.body.username});
+    User.register(newUser, req.body.password, (err, user) => { 
+        if(err){
+            console.log(err);
+            return res.render("register");
+        }
+        passport.authenticate("local")(req, res, () => {
+           res.redirect("/campgrounds"); 
+        });
+    });
+});
+	
 app.listen(3000, () => {
     console.log('KeenKamps');
 });

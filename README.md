@@ -43,6 +43,15 @@ Each campground has:
 * Show db.collection.drop()
 * Add a show route/template
 
+# Auth Pt 1
+* Install all pkgs needed for authenticated
+* Define User model
+
+# Auth Pt 2
+* Configure Passport
+* Add register routes
+* Add register template 
+
 # Refactor Mongoose Code
 * create a models directory
 * use module.exports
