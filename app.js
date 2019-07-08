@@ -22,6 +22,7 @@ app.use(require("express-session")({
     resave: false,
     saveUninitialized: false
 }));
+
 app.use(passport.initialize());
 app.use(passport.session());
 passport.use(new LocalStrategy(User.authenticate()));
@@ -170,6 +171,25 @@ app.post("/register", (req, res) => {
     });
 });
 	
+//show login form
+app.get("/login", function(req, res){
+	res.render("login");
+});
+
+//handling login form
+app.post("/login", 
+		 //passport middleware
+	passport.authenticate
+		("local", {
+	 	successRedirect: "/campgrounds",
+		failureRedirect: "/login",
+	 }), 
+		 
+		 // this does nothing
+		 (req, res) => {
+	 	// res.send('LOGIN');
+});
+
 app.listen(3000, () => {
     console.log('KeenKamps');
 });
