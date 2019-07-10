@@ -56,6 +56,13 @@ Each campground has:
 * Add Login Routes
 * Add Login Templates
 
+# Auth Pt. 4-logout/Navbar
+* add logout routes
+* prevent user from adding a comment if not signed info
+* Add links to navbar
+
+# Auth Pt. 5-show/hide navlinks
+
 # Refactor Mongoose Code
 * create a models directory
 * use module.exports

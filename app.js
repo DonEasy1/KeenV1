@@ -29,6 +29,13 @@ passport.use(new LocalStrategy(User.authenticate()));
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
+//so currentUser Authentication on every route
+app.use((req, res, next) => {
+	res.locals.currentUser = req.user;
+	//route handler
+	next();
+});
+
 // Campground.create({
 //     name: 'Granite Hill', 
 //     image: 'https://farm8.staticflickr.com/7205/7121863467_eb0aa64193.jpg',
@@ -66,6 +73,7 @@ app.get('/', (req, res) => {
 
 // INDEX route - show all campgrounds
 app.get('/campgrounds', (req, res) => {
+	// console.log(req.user);
     // all campgrounds from db
     Campground.find({}, (err, allcampgrounds) => {
         if (err) {
@@ -89,7 +97,7 @@ app.get("/campgrounds/:id", (req, res) => {
             console.log(err);
         } else {
 			console.log(foundCampground);
-       //render show template with that campground
+       //render show template with that campground and always checking for currentUser logged in/auth with app.use
         res.render("campgrounds/show", {campground: foundCampground}); 
         }
     });
@@ -114,7 +122,7 @@ app.post('/campgrounds', (req, res) => {
 //COMMENTS ROUTES
 //========================================
 
-app.get("/campgrounds/:id/comments/new", (req, res) => {
+app.get("/campgrounds/:id/comments/new", isLoggedIn, (req, res) => {
 	//find name of campground by id 
 	Campground.findById(req.params.id, (err, campground) => {
 		if(err){
@@ -125,7 +133,8 @@ app.get("/campgrounds/:id/comments/new", (req, res) => {
 	});
 });
 
-app.post('/campgrounds/:id/comments', (req, res) => {
+
+app.post('/campgrounds/:id/comments', isLoggedIn, (req, res) => {
 	//lookup campground using ID
 	Campground.findById(req.params.id, (err, campground) => {
 		if(err){
@@ -184,11 +193,23 @@ app.post("/login",
 	 	successRedirect: "/campgrounds",
 		failureRedirect: "/login",
 	 }), 
-		 
 		 // this does nothing
 		 (req, res) => {
 	 	// res.send('LOGIN');
 });
+
+// logout route
+app.get("/logout", (req, res) => {
+	req.logout();
+	res.redirect("/campgrounds");
+});
+
+function isLoggedIn(req, res, next){
+	if(req.isAuthenticated()){
+	   return next();
+	   }
+	res.redirect("/login");
+}
 
 app.listen(3000, () => {
     console.log('KeenKamps');
