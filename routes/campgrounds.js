@@ -19,15 +19,18 @@ router.get("/", (req, res) => {
 //CREATE ROUTE - add a new campground to DB
 router.post('/', (req, res) => {
     //get data from form and add to campgrounds array
-    var newCampground = {name: name, image: image, description: desc};
-    // create new campground and save to db
-    Campground.create(newCampground, (err, newlyCreated) => {
-        if(err) {
-            //send user back to the form and say something re what was entered
+    var name = req.body.name;
+    var image = req.body.image;
+    var desc = req.body.description;
+    var newCampground = {name: name, image: image, description: desc}
+    // Create a new campground and save to DB
+    Campground.create(newCampground, function(err, newlyCreated){
+        if(err){
             console.log(err);
         } else {
-			res.redirect("/campgrounds");
-		}
+            //redirect back to campgrounds page
+            res.redirect("/campgrounds");
+        }
     });
 });
 
