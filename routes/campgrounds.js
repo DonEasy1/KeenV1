@@ -1,4 +1,5 @@
 var express = require("express");
+var router = express.Router({mergeParams: true});
 var router = express.Router();
 var Campground = require("../models/campground");
 
@@ -22,9 +23,10 @@ router.post('/', (req, res) => {
     var name = req.body.name;
     var image = req.body.image;
     var desc = req.body.description;
-    var newCampground = {name: name, image: image, description: desc}
+    var newCampground = {name: name, image: image, description: desc};
     // Create a new campground and save to DB
-    Campground.create(newCampground, function(err, newlyCreated){
+    Campground.create(newCampground, (err, newlyCreated) => {
+		// console.log(req.body.name);
         if(err){
             console.log(err);
         } else {

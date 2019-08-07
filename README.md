@@ -93,6 +93,10 @@ SHOW /campgrounds/:id    GET     Shows info about 1 dog
 NEW    campgrounds/:id/comments/new    GET
 CREATE campgrounds/:id/comments        POST
 
+## Users + Comments
+* Associate users and comments
+* Save author's name to a comment automatically
+
 # KeenKamp
 
 > A Node.js web application project spawned from the Udemy course - [The Web Developer Bootcamp by Colt Steele](https://www.udemy.com/the-web-developer-bootcamp/)
