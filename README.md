@@ -97,6 +97,9 @@ CREATE campgrounds/:id/comments        POST
 * Associate users and comments
 * Save author's name to a comment automatically
 
+## Users + Campgrounds
+* Prevent unauthenticated user from creating a campground
+* Save username+id to newly created campground
 # KeenKamp
 
 > A Node.js web application project spawned from the Udemy course - [The Web Developer Bootcamp by Colt Steele](https://www.udemy.com/the-web-developer-bootcamp/)
