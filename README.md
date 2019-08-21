@@ -17,10 +17,13 @@ CREATE campgrounds/:id/comments        POST
 
 # Editing Campgrounds
 * Add Method-Override
-* Add Edit ROute for Campgrounds
+* Add Edit Route for Campgrounds
 * Add Link to Edit Page
 * Add Update Route
-* Fix $set problem
+
+# Deleting Campgrounds
+* Add Destroy Route
+* Add Destroy Button
 
 # KeenKamp
 
