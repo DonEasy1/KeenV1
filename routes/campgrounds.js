@@ -18,12 +18,16 @@ router.get("/", (req, res) => {
 });
 
 //CREATE ROUTE - add a new campground to DB
-router.post('/', (req, res) => {
+router.post("/", isLoggedIn, (req, res) => {
     //get data from form and add to campgrounds array
     var name = req.body.name;
     var image = req.body.image;
     var desc = req.body.description;
-    var newCampground = {name: name, image: image, description: desc};
+	var author = {
+        id: req.user._id,
+        username: req.user.username
+    }
+    var newCampground = {name: name, image: image, description: desc, author: author};
     // Create a new campground and save to DB
     Campground.create(newCampground, (err, newlyCreated) => {
 		// console.log(req.body.name);
@@ -37,7 +41,7 @@ router.post('/', (req, res) => {
 });
 
 //NEW - show form to create new campground must be before SHOW Page (/:id)
-router.get('/new', (req, res) => {
+router.get("/new", isLoggedIn, (req, res) => {
     res.render('campgrounds/new');
 });
 
@@ -91,6 +95,7 @@ router.delete("/:id", (req, res) => {
 		}
 	});
 });
+
 //middleware
 function isLoggedIn(req, res, next){
 	if(req.isAuthenticated()){
