@@ -1,81 +1,3 @@
-# KeenKamp
-Camping info site
-
-* Add Landing Pages
-* Add Campgrounds Page that lists all campgrounds
-
-Each campground has:
-* Name
-* Image
-
-[
- {name:"Salmon Creek", image: "http://www.image.com"}
- {name:"Salmon Creek", image: "http://www.image.com"}
- {name:"Salmon Creek", image: "http://www.image.com"}
-]
-
-# Layout and basic Styling
-* create our header and footer partials
-* add in Bootstrap
-
-# Creating New Campgrounds
-* Setup new campground POST route
-* Add in body-parser
-* setup route to show form
-* add basic unstyled form
-
-# Style the campgrounds page
-* Add better header/title
-* make campgronds display in a gridS
-
-# Style the navbar & form
-* add a navbar to all templates
-* style the new campground form
-
-# Add Mongoos
-* Install and configure mongoose
-* Setup campground model
-* Use campground model inside of our routes
-
-# Show Page
-* Review the RESTful routes we've seen so far
-* Add description to our campground model
-* Show db.collection.drop()
-* Add a show route/template
-
-# Auth Pt 1- User Setup
-* Install all pkgs needed for authenticated
-* Define User model
-
-# Auth Pt 2-register
-* Configure Passport
-* Add register routes
-* Add register template 
-
-# Auth Pt. 3-Login
-* Add Login Routes
-* Add Login Templates
-
-# Auth Pt. 4-logout/Navbar
-* add logout routes
-* prevent user from adding a comment if not signed info
-* Add links to navbar
-
-# Auth Pt. 5-show/hide navlinks
-
-# Refactor Mongoose Code
-* create a models directory
-* use module.exports
-* require everything correctly
-
-# Add Seeds File
-* Add a seeds.js file
-* Run the seeds file every time the server starts
-
-# Add the Comment model
-* Make our errors go away
-* Display comments on campground show page
-
 # NESTED ROUTES
 * Discuss nested routes
 * Add the comment new and create routes
@@ -93,9 +15,12 @@ SHOW /campgrounds/:id    GET     Shows info about 1 dog
 NEW    campgrounds/:id/comments/new    GET
 CREATE campgrounds/:id/comments        POST
 
-## Users + Comments
-* Associate users and comments
-* Save author's name to a comment automatically
+# Editing Campgrounds
+* Add Method-Override
+* Add Edit ROute for Campgrounds
+* Add Link to Edit Page
+* Add Update Route
+* Fix $set problem
 
 # KeenKamp
 

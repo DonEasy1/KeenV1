@@ -55,4 +55,37 @@ router.get("/:id", (req, res) => {
     });
 });
 
+// EDIT CAMPGROUND ROUTE
+router.get("/:id/edit", (req, res) => {
+	Campground.findById(req.params.id, (err, foundCampground) => {
+		if(err){
+			res.redirect("/campgrounds")
+		} else {
+			res.render("campgrounds/edit", {campground: foundCampground});
+		}
+	});
+});
+
+// UPDATE CAMPGROUND ROUTE
+router.put("/:id", (req, res) => {
+	//find and update correct campground
+	Campground.findByIdAndUpdate(req.params.id, req.body.campground, (err, updatedCampground) => {
+		if(err){
+	//redirect to campgrounds page
+			res.redirect("/campgrounds");
+		} else {
+		//redirect to show page
+			res.redirect("/campgrounds/" + req.params.id);
+		}
+	});
+})
+
+//middleware
+function isLoggedIn(req, res, next){
+	if(req.isAuthenticated()){
+	   return next();
+	   }
+	res.redirect("/login");
+}
+
 module.exports = router;
