@@ -1,3 +1,4 @@
+<!-- foundCampground.author.id.equals(req.user.id) <% if(currentUser && campground.author.id.equals(currendUser._id)) { %> -->
 # NESTED ROUTES
 * Discuss nested routes
 * Add the comment new and create routes

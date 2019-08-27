@@ -1,6 +1,6 @@
-var mongoose = require("mongoose");
+// var mongoose = require("mongoose");
 var Campground = require("./models/campground");
-var Comment   = require("./models/comment");
+var Comment   = require("./models/comment");//
  
 var data = [
     {
@@ -17,8 +17,8 @@ var data = [
         image: "https://farm6.staticflickr.com/5487/11519019346_f66401b6c1.jpg",
         description: "hah hah...Lorem ipsum, or lipsum as it is sometimes known, is dummy text used in laying out print, graphic or web 		designs. The passage is attributed to an unknown typesetter in the 15th century who is thought to have scrambled parts of 				Cicero's De Finibus Bonorum et Malorum for use in a type specimen book.",
 		author: 
-			{id: "5d5ef563445fbb024a184a8f",
-			username: "Freddy"
+			{id: "5d2aa2f3e8b614229ed89702",
+			username: "Harry"
 		}
     },
     {
@@ -26,8 +26,8 @@ var data = [
         image: "https://cdn.pixabay.com/photo/2016/11/23/17/05/campfire-1853835__340.jpg",
         description: "rah rah...Lorem ipsum, or lipsum as it is sometimes known, is dummy text used in laying out print, graphic or web 		designs. The passage is attributed to an unknown typesetter in the 15th century who is thought to have scrambled parts of 				Cicero's De Finibus Bonorum et Malorum for use in a type specimen book.",
 		author: 
-			{id: "5d5de49cb30178050a2ed1e3",
-			username: "Candy"
+			{id: "5d2aa2f3e8b614229ed89702",
+			username: "Harry"
 		}
     },
 ];
