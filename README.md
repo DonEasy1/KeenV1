@@ -25,6 +25,10 @@ CREATE campgrounds/:id/comments        POST
 * Add Destroy Route
 * Add Destroy Button
 
+# Authorization
+* User can only edit or delete his/her campgrounds
+* Hide/Show edit and delete buttons
+
 # KeenKamp
 
 > A Node.js web application project spawned from the Udemy course - [The Web Developer Bootcamp by Colt Steele](https://www.udemy.com/the-web-developer-bootcamp/)
