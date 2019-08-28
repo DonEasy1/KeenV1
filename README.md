@@ -1,4 +1,3 @@
-<!-- foundCampground.author.id.equals(req.user.id) <% if(currentUser && campground.author.id.equals(currendUser._id)) { %> -->
 # NESTED ROUTES
 * Discuss nested routes
 * Add the comment new and create routes
@@ -30,6 +29,22 @@ CREATE campgrounds/:id/comments        POST
 * User can only edit or delete his/her campgrounds
 * Hide/Show edit and delete buttons
 
+# Editing Comments
+* Add Edit route for comments
+	nested routes
+	/campgrounds/:id/edit
+	/campgrounds/:id/comments/:comment_id/edit
+* Add the comment new and create routes
+* Add Edit buttons
+* Add Update route
+
+# Deleting Comments
+* User can only edit his/her comments
+* User can only delete his/her comments
+* Hide/Show edit and delete buttons
+* Refactor Middleware
+
+===========================================
 # KeenKamp
 
 > A Node.js web application project spawned from the Udemy course - [The Web Developer Bootcamp by Colt Steele](https://www.udemy.com/the-web-developer-bootcamp/)
