@@ -39,9 +39,13 @@ CREATE campgrounds/:id/comments        POST
 * Add Update route
 
 # Deleting Comments
+* Add Destroy route
+* Add Delete button 
 * User can only edit his/her comments
 * User can only delete his/her comments
 * Hide/Show edit and delete buttons
+
+# REFACTOR Middleware
 * Refactor Middleware
 
 ===========================================
