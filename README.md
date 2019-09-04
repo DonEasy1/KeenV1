@@ -50,6 +50,10 @@ CREATE campgrounds/:id/comments        POST
 # REFACTOR Middleware
 * Refactor Middleware
 
+# Adding Flash Messages
+* Install and configure connect-flash
+* Add bootstrap alerts to header
+
 ===========================================
 # KeenKamp
 

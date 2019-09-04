@@ -2,6 +2,7 @@ var express     = require("express"),
     app         = express(),
     bodyParser  = require("body-parser"),
     mongoose    = require("mongoose"),
+	flash		=require("connect-flash-plus"),
     passport    = require("passport"),
     LocalStrategy = require("passport-local"),
 	methodOverride = require("method-override"),
@@ -21,6 +22,7 @@ app.set("view engine", "ejs");
 app.use(express.static(__dirname + "/public"));
 console.log(__dirname);
 app.use(methodOverride("_method"));
+app.use(flash());
 seedDB(); //seed the database
 
 // PASSPORT CONFIGURATION

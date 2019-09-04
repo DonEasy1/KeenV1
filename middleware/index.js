@@ -4,7 +4,7 @@ var Comment = require("../models/comment");
 //all middleware goes here
 var middlewareObj = {};
 
-middlewareObj.checkCampgroundOwnership = (req, res, next) => {
+middlewareObj.checkCampgroundOwnership = function(req, res, next){
 	if(req.isAuthenticated()){
 		Campground.findById(req.params.id, (err, foundCampground) => {
 			if(err){
@@ -25,7 +25,7 @@ middlewareObj.checkCampgroundOwnership = (req, res, next) => {
 	}
 }
 
-middlewareObj.checkCommentOwnership = (req, res, next) => {
+middlewareObj.checkCommentOwnership = function(req, res, next){
 	if(req.isAuthenticated()){
         Comment.findById(req.params.comment_id, function(err, foundComment){
            if(err){
@@ -44,10 +44,12 @@ middlewareObj.checkCommentOwnership = (req, res, next) => {
     }
 }
 
-middlewareObj.isLoggedIn = (req, res, next) => {
+middlewareObj.isLoggedIn = function(req, res, next){
 	if(req.isAuthenticated()){
 	   return next();
 	   }
+	// console.log("YOU NEED TO BE LOGGED IN FIRST!!!!!")
+	req.flash("error", "Please, login first.");
 	res.redirect("/login");
 }
 
