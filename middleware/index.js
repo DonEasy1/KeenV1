@@ -49,7 +49,7 @@ middlewareObj.isLoggedIn = function(req, res, next){
 	   return next();
 	   }
 	// console.log("YOU NEED TO BE LOGGED IN FIRST!!!!!")
-	req.flash("error", "Please, login first.");
+	req.flash("error", "Please LOGIN first!");
 	res.redirect("/login");
 }
 
