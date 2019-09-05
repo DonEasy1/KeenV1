@@ -20,11 +20,13 @@ router.post("/register", (req, res) => {
     var newUser = new User({username: req.body.username});
     User.register(newUser, req.body.password, (err, user) => { 
         if(err){
-            console.log(err);
-            return res.render("register");
+			console.log(err);
+            req.flash("error", err.message);
+            res.redirect("/register");
         }
         passport.authenticate("local")(req, res, () => {
-           res.redirect("/campgrounds"); 
+			req.flash("success", "Welcome to Keen Kamps, " + user.username + "!");
+            res.redirect("/campgrounds"); 
         });
     });
 });
@@ -41,6 +43,7 @@ router.post("/login",
 		("local", {
 	 	successRedirect: "/campgrounds",
 		failureRedirect: "/login",
+		failureFlash: true,
 	 }), 
 		 // this does nothing
 		 (req, res) => {

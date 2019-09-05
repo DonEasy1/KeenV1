@@ -53,6 +53,7 @@ CREATE campgrounds/:id/comments        POST
 # Adding Flash Messages
 * Install and configure connect-flash
 * Add bootstrap alerts to header
+* Add error, success messages
 
 ===========================================
 # KeenKamp
