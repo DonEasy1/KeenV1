@@ -49,27 +49,26 @@ router.get("/new", middleware.isLoggedIn, (req, res) => {
 router.get("/:id", (req, res) => {
     //find the campground with provided ID
     Campground.findById(req.params.id).populate("comments").exec((err, foundCampground) => {
-        if(err){
-            console.log(err);
-        } else {
-			console.log(foundCampground);
+        if(err || !foundCampground){
+			console.log("err");
+			req.flash("error", "Campground not found.");
+			return res.redirect("/campgrounds");
+		}
+		console.log(foundCampground);
        //render show template with that campground and always checking for currentUser logged in/auth with app.use
         res.render("campgrounds/show", {campground: foundCampground}); 
-        }
     });
 });
-// EDIT CAMPGROUND ROUTE
-router.get("/:id/edit", middleware.checkCampgroundOwnership, (req, res) => {
+
+//EDIT: show edit form for campground
+router.get("/:id/edit", middleware.isLoggedIn, middleware.checkCampgroundOwnership, (req, res) => {
 	Campground.findById(req.params.id, (err, foundCampground) => {
-		if(error){
-			req.flash("error", "Campground not found.");
-		}
 		res.render("campgrounds/edit", {campground: foundCampground});
 	});
 });
 
 // UPDATE CAMPGROUND ROUTE
-router.put("/:id", middleware.checkCampgroundOwnership, (req, res) => {
+router.put("/:id", middleware.isLoggedIn, middleware.checkCampgroundOwnership, (req, res) => {
 	//find and update correct campground
 	Campground.findByIdAndUpdate(req.params.id, req.body.campground, (err, updatedCampground) => {
 		if(err){
