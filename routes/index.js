@@ -10,9 +10,9 @@ router.get('/', (req, res) => {
     res.render('landing');
 });
 
-//show register form
-router.get('/register', (req, res) => {
-	res.render('register');
+// show register form
+router.get("/register", (req, res) => {
+   res.render("register", {page: 'register'}); 
 });
 
 //handle sign-up logic
@@ -30,10 +30,10 @@ router.post("/register", (req, res) => {
         });
     });
 });
-	
+
 //show login form
-router.get("/login", function(req, res){
-   res.render("login"); 
+router.get("/login", (req, res) => {
+   res.render("login", {page: 'login'}); 
 });
 
 //handling login form
