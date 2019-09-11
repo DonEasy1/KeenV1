@@ -23,7 +23,7 @@ app.use(express.static(__dirname + "/public"));
 console.log(__dirname);
 app.use(methodOverride("_method"));
 app.use(flash());
-// seedDB(); //seed the database
+seedDB(); //seed the database
 
 // PASSPORT CONFIGURATION
 app.use(require("express-session")({

@@ -4,16 +4,28 @@ var router = express.Router();
 var Campground = require("../models/campground");
 var middleware = require("../middleware");
 
-// INDEX route - show all campgrounds
+// // INDEX route - show all campgrounds
+// router.get("/", (req, res) => {
+// 	// console.log(req.user);
+//     // all campgrounds from db
+//     Campground.find({}, (err, allCampgrounds) => {
+//         if (err){
+//             console.log(err);
+//         } else {
+//             res.render("campgrounds/index", {campgrounds: allCampgrounds, currentUser: req.user});
+//         }
+//     });
+// });
+
+//INDEX - show all campgrounds
 router.get("/", (req, res) => {
-	// console.log(req.user);
-    // all campgrounds from db
-    Campground.find({}, (err, allCampgrounds) => {
-        if (err){
-            console.log(err);
-        } else {
-            res.render("campgrounds/index", {campgrounds: allCampgrounds, currentUser: req.user});
-        }
+    // Get all campgrounds from DB
+    Campground.find({}, function(err, allCampgrounds){
+       if(err){
+           console.log(err);
+       } else {
+          res.render("campgrounds/index",{campgrounds: allCampgrounds, page: 'campgrounds'});
+       }
     });
 });
 
