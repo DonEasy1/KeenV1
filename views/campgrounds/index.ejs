@@ -11,7 +11,7 @@
 		<div class ='row' style="display:flex; flex-wrap: wrap;"> 
 				<% campgrounds.forEach((campground) => { %>
 				<div class ='col-md-3 col-sm-6'>
-					<div class="thumbnail">
+					<div class="thumbnail center">
 						<img src="<%= campground.image %>"</h2>
 						<div class ='caption'>
 							<h4><%= campground.name %></h4>
@@ -24,7 +24,7 @@
 		    <% }); %>
 		</div>
 	</div>
-<% include ../partials/footer %>
 <div class="text-center">
-		<a href='/campgrounds'>Back</a>
+	<a href='/campgrounds'>Back</a>
+	<% include ../partials/footer %>
 </div>
