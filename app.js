@@ -17,16 +17,16 @@ var commentRoutes    = require("./routes/comments"),
     indexRoutes      = require("./routes/index");
 
 // mongo db atlas for development data base
-mongoose.connect("mongodb://localhost:27017/keen_kamps", { useNewUrlParser: true, useFindAndModify: false, useCreateIndex: true });
+// mongoose.connect("mongodb://localhost:27017/keen_kamps", { useNewUrlParser: true, useFindAndModify: false, useCreateIndex: true });
 //mongo db atlas for deployment data base
-// mongoose.connect("mongodb+srv://Serenity:Hyonni00!@cluster0-z6en9.mongodb.net/test?retryWrites=true&w=majority", {
-// 	useNewUrlParser: true,
-// 	useFindAndModify: false,
-// 	useCreateIndex: true 
-// 	}).then(() => {console.log('Connected to DB!');
-// }).catch (err => {
-// 	console.log('ERROR:', err.message);
-// });
+mongoose.connect("mongodb+srv://Serenity:Hyonni00!@cluster0-z6en9.mongodb.net/test?retryWrites=true&w=majority", {
+	useNewUrlParser: true,
+	useFindAndModify: false,
+	useCreateIndex: true 
+	}).then(() => {console.log('Connected to DB!');
+}).catch (err => {
+	console.log('ERROR:', err.message);
+});
 
 app.use(bodyParser.urlencoded({extended: true}));
 app.set("view engine", "ejs");
@@ -43,6 +43,7 @@ app.use(require("express-session")({
     saveUninitialized: false
 }));
 
+app.locals.moment = require("moment");
 app.use(passport.initialize());
 app.use(passport.session());
 passport.use(new LocalStrategy(User.authenticate()));
@@ -61,8 +62,8 @@ app.use("/campgrounds", campgroundRoutes);
 app.use("/campgrounds/:id/comments", commentRoutes);
 
 // for development goorm database
-app.listen(3000, () => {
+// app.listen(3000, () => {
 // for heroku deployment db
-// app.listen(process.env.PORT || 5000, () => {
+app.listen(process.env.PORT || 5000, () => {
     console.log('KeenKamps');
 });

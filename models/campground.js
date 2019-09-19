@@ -2,9 +2,10 @@ var mongoose = require("mongoose");
 
 var campgroundSchema = new mongoose.Schema({
    	name: String,
-	dollar_amount: String,
    	image: String,
    	description: String,
+	dollar_cost: Number,
+	createdAt: {type: Date, default: Date.now},
    	author: {
       id: {
          type: mongoose.Schema.Types.ObjectId,
