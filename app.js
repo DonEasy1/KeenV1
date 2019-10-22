@@ -1,3 +1,5 @@
+require('dotenv').config();
+
 var express     = require("express"),
     app         = express(),
     bodyParser  = require("body-parser"),
@@ -62,8 +64,8 @@ app.use("/campgrounds", campgroundRoutes);
 app.use("/campgrounds/:id/comments", commentRoutes);
 
 // for development goorm database
-// app.listen(3000, () => {
+app.listen(3000, () => {
 // for heroku deployment db
-app.listen(process.env.PORT || 5000, () => {
+// app.listen(process.env.PORT || 5000, () => {
     console.log('KeenKamps');
 });
