@@ -20,7 +20,7 @@ var commentRoutes    = require("./routes/comments"),
 
 // mongo db atlas for development data base
 // mongoose.connect("mongodb://localhost:27017/keen_kamps", { useNewUrlParser: true, useFindAndModify: false, useCreateIndex: true });
-//mongo db atlas for deployment data base
+// mongo db atlas for deployment data base
 mongoose.connect("mongodb+srv://Serenity:Hyonni00!@cluster0-z6en9.mongodb.net/test?retryWrites=true&w=majority", {
 	useNewUrlParser: true,
 	useFindAndModify: false,
@@ -36,7 +36,7 @@ app.use(express.static(__dirname + "/public"));
 console.log(__dirname);
 app.use(methodOverride("_method"));
 app.use(flash());
-seedDB(); //seed the database
+// seedDB(); //seed the database
 
 // PASSPORT CONFIGURATION
 app.use(require("express-session")({

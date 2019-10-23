@@ -1,4 +1,33 @@
 <% include ../partials/header %>
+	<script>
+	  function initMap() {
+		var lat = <%= campground.lat %>;
+		var lng = <%= campground.lng %>;
+		var center = {lat: lat, lng: lng };
+		var map = new google.maps.Map(document.getElementById('map'), {
+			zoom: 8,
+			center: center,
+			scrollwheel: false
+		});
+		var contentString = `
+		  <strong><%= campground.name %><br />
+		  <%= campground.location %></strong>
+		  <p><%= campground.description %></p>
+		`
+		var infowindow = new google.maps.InfoWindow({
+		  content: contentString
+		});
+		var marker = new google.maps.Marker({
+			position: center,
+			map: map
+		});
+		marker.addListener('click', function() {
+		  infowindow.open(map, marker);
+		});
+	  }
+	// function initMap() {alert("ok");} make sure function is called
+	</script>
+
 	<div class = "row">
 		<div class = "col-md-3">
 			<p class = "lead">KeenKamps</p>
@@ -56,39 +85,10 @@
 			</div>
 		</div>
 	</div>
-<script>
-// Initialize and add the map
-	function initMap() {
-		var lat = <%= campground.lat %>;
-		var lng = <%= campground.lng %>;
-		var center = {lat: lat, lng: lng};
-		var map = new.google.maps.Map(document.getElementById('map'), {
-			zoom: 8,
-			center: center,
-			scrollweel: false
-		});
-		var contentString = `
-		<strong><%= campground.name %><br />
-		<%= campground.location %></strong>
-		<p><%= campground.description %></p>
-		`
-		var infowindow = new google.maps.InfoWindow({
-			content: contentString
-		});
-		var marker = new google.maps.Marker({
-			positon: center,
-			map: map
-		});
-		marker.addListener('click', function() {
-			infowindow.open(map, marker);
-		});
-	}
-</script>
     <script async defer
-    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCe6U0fza1zTRzEVgBb7CjiwsKcnz2_G_0&callback=initMap">
-</script>
-<p class="text-center">
-	<a href='/campgrounds'>Back</a>
-</p>
-
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAGJW28zXMMoCk2VUP0apdddGtfodTK1AQ&callback=initMap">
+	</script>
+	<p class="text-center">
+		<a href='/campgrounds'>Back</a>
+	</p>
 <% include ../partials/footer %>

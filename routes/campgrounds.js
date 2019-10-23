@@ -12,9 +12,6 @@ var options = {
 	formatter: null
 };
 var geocoder = NodeGeocoder(options);
-
-
-
 // // INDEX route - show all campgrounds
 // router.get("/", (req, res) => {
 // 	// console.log(req.user);
@@ -52,7 +49,7 @@ router.post("/", middleware.isLoggedIn, (req, res) => {
   }
   geocoder.geocode(req.body.location, function (err, data) {
     if (err || !data.length) {
-	console.log(err);
+		console.log(err);
       req.flash('error', 'Invalid address');
       return res.redirect('back');
     }
