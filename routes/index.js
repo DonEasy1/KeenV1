@@ -15,10 +15,13 @@ router.get("/register", (req, res) => {
    res.render("register", {page: 'register'}); 
 });
 
-//handle sign-up logic
+// handle sign-up logic
 router.post("/register", (req, res) => {
     var newUser = new User({username: req.body.username});
-    User.register(newUser, req.body.password, (err, user) => { 
+	if(req.body.adminCode == 'AnEasyGuess'){
+		newUser.isAdmin = true;
+	}    
+	User.register(newUser, req.body.password, (err, user) => { 
         if(err){
 			console.log(err);
             req.flash("error", err.message);
@@ -38,13 +41,13 @@ router.get("/login", (req, res) => {
 
 //handling login form
 router.post("/login", 
-		 //passport middleware
+	//passport middleware
 	passport.authenticate
 		("local", {
 	 	successRedirect: "/campgrounds",
 		failureRedirect: "/login",
 		failureFlash: true,
-	 }), 
+	 	}), 
 		 // this does nothing
 		 (req, res) => {
 	 	// res.send('LOGIN');
