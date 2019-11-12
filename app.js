@@ -1,3 +1,5 @@
+require('dotenv').config();
+
 var express     = require("express"),
     app         = express(),
     bodyParser  = require("body-parser"),
@@ -17,16 +19,23 @@ var commentRoutes    = require("./routes/comments"),
     indexRoutes      = require("./routes/index");
 
 // mongo db atlas for development data base
-// mongoose.connect("mongodb://localhost:27017/keen_kamps", { useNewUrlParser: true, useFindAndModify: false, useCreateIndex: true });
-//mongo db atlas for deployment data base
-mongoose.connect("mongodb+srv://Serenity:Hyonni00!@cluster0-z6en9.mongodb.net/test?retryWrites=true&w=majority", {
-	useNewUrlParser: true,
-	useFindAndModify: false,
+mongoose.connect("mongodb://localhost:27017/keen_kamps", { 
+	useNewUrlParser: true, 
+	useFindAndModify: false, 
 	useCreateIndex: true 
-	}).then(() => {console.log('Connected to DB!');
-}).catch (err => {
-	console.log('ERROR:', err.message);
-});
+	}).then(() => {console.log('Connected to DB via local development database!');
+	}).catch (err => {
+		console.log('ERROR:', err.message);
+	});;
+// mongo db atlas for deployment data base
+// mongoose.connect("mongodb+srv://Serenity:Hyonni00!@cluster0-z6en9.mongodb.net/test?retryWrites=true&w=majority", {
+// 	useNewUrlParser: true,
+// 	useFindAndModify: false,
+// 	useCreateIndex: true 
+// 	}).then(() => {console.log('Connected to DB via deployment database!');
+// }).catch (err => {
+// 	console.log('ERROR:', err.message);
+// });
 
 app.use(bodyParser.urlencoded({extended: true}));
 app.set("view engine", "ejs");
@@ -34,7 +43,7 @@ app.use(express.static(__dirname + "/public"));
 console.log(__dirname);
 app.use(methodOverride("_method"));
 app.use(flash());
-seedDB(); //seed the database
+// seedDB(); //seed the database
 
 // PASSPORT CONFIGURATION
 app.use(require("express-session")({
@@ -62,8 +71,9 @@ app.use("/campgrounds", campgroundRoutes);
 app.use("/campgrounds/:id/comments", commentRoutes);
 
 // for development goorm database
-// app.listen(3000, () => {
+app.listen(3000, () => {
 // for heroku deployment db
-app.listen(process.env.PORT || 5000, () => {
-    console.log('KeenKamps');
+	console.log('KeenKamps via development database!');
+// app.listen(process.env.PORT || 5000, () => {
+    // console.log('KeenKamps via deployment database!');
 });
